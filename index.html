@@ -1,51 +1,62 @@
+<title>柯兰的博客</title>
 <h1>
-  github test
+    欢迎来到我的博客
 </h1>
 
-<section>
-  <h2>Contact information</h2>
-  <fieldset>
-    <legend>Title</legend>
-    <ul>
-      <li>
-        <label for="title_1">
-          <input type="radio" id="title_1" name="title" value="K" />
-          King
-        </label>
-      </li>
-      <li>
-        <label for="title_2">
-          <input type="radio" id="title_2" name="title" value="Q" />
-          Queen
-        </label>
-      </li>
-      <li>
-        <label for="title_3">
-          <input type="radio" id="title_3" name="title" value="J" />
-          Joker
-        </label>
-      </li>
-    </ul>
-  </fieldset>
-  <p>
-    <label for="name">
-      <span>Name: </span>
-      <strong><abbr title="required">*</abbr></strong>
-    </label>
-    <input type="text" id="name" name="username" />
-  </p>
-  <p>
-    <label for="mail">
-      <span>E-mail: </span>
-      <strong><abbr title="required">*</abbr></strong>
-    </label>
-    <input type="email" id="mail" name="usermail" />
-  </p>
-  <p>
-    <label for="pwd">
-      <span>Password: </span>
-      <strong><abbr title="required">*</abbr></strong>
-    </label>
-    <input type="password" id="pwd" name="password" />
-  </p>
-</section>
+<p>
+    <a href="file:///D:/SttProject/Blog/frontend/html/index.html">首页</a>
+    <a href="">写博客</a>
+</p>
+
+<div id="list">
+    <input placeholder="请输入查询关键词" name="search"></input>
+    <button onclick="">搜索</button>
+
+    <button onclick="fetchText()">发出ajax请求</button>
+    <p id="fetchResult"></p>
+
+    <!-- <h2 id="title"></h2>
+    <li id="date"></li>
+    <span id="content"></span> -->
+</div>
+
+<script>
+    // document.getElementById("title").innerHTML = "标题：Love story";
+    // document.getElementById("date").innerHTML = "2024-01-01";
+    // document.getElementById("content").innerHTML = "Love story is a country song.";
+
+    // var titles = ["Love story1", "Love story2", "Love story3"];
+    // var dates = ["2024-01-01", "2024-01-02", "2024-01-03"];
+    // var contents = ["Love story1 is a country song.", "Love story2 is a country song.", "Love story3 is a country song."];
+
+    // for (var i = 0; i < titles.length; i++) {
+    //     document.write("<h2>" + titles[i] + "</h2>");
+    //     document.write("<li>" + dates[i] + "</li>");
+    //     document.write("<span>" + contents[i] + "</span>");
+    // }
+
+    var arr = [
+        ["Love story1", "2024-01-01", "Love story1 is a country song."],
+        ["Love story2", "2024-01-02", "Love story2 is a country song."],
+        ["Love story3", "2024-01-03", "Love story3 is a country song."]
+    ];
+
+    for (var i = 0; i < arr.length; i++) {
+        document.write("<h2>" + arr[i][0] + "</h2>");
+        document.write("<li>" + arr[i][1] + "</li>");
+        document.write("<span>" + arr[i][2] + "</span>");
+    }
+
+    function fetchText() {
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('fetchResult').innerHTML = this.responseText;
+            }
+        }
+
+        httpRequest.open("GET", "./ajax_data.txt");
+        httpRequest.send();
+    }
+    
+</script>
