@@ -51,12 +51,14 @@
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
+                console.log("debug");
+                console.log(this.responseText);
                 document.getElementById('fetchResult').innerHTML = this.responseText;
             }
         }
 
-        //httpRequest.open("GET", "./ajax_data.txt");
-        httpRequest.open("GET", "./ajax_php.php");
+        //httpRequest.open("GET", "./ajax_data.txt", true);
+        httpRequest.open("GET", "./ajax_php.php", true);
         httpRequest.send();
     }
     
