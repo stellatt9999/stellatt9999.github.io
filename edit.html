@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>编辑文章</title>
+    </head>
+    <body>
+        <textarea id = 'content' cols="200", rows="20">请输入内容</textarea>
+        <button onclick="saveArticle()">提交</button>
+
+        <script>
+
+            //1.XMLHttpRequest 请求
+            // function saveArticle() {
+            //     var httpRequest = new XMLHttpRequest();
+            //     httpRequest.onreadystatechange = function(){
+            //         if(this.readyState == 4 && this.status == 200) {
+            //             alert("保存成功！");
+            //         }
+            //     }
+
+            //     var content = document.getElementById('content').innerHTML;
+            //     console.log('content:' + content);
+            //     httpRequest.open("POST", "http://127.0.0.1:9501/article-save");
+            //     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            //     httpRequest.send(content);
+            // }
+
+            //Promise对象
+            function saveArticle() {
+                var httpRequest = new XMLHttpRequest();
+                return new Promise(function(resolve, reject) {
+                    httpRequest.onreadystatechange = function(){
+                        if(this.readyState == 4) {
+                            if (this.status == 200){
+                                resolve("保存成功！");
+                            } else {
+                                reject(this.status);
+                            }
+                        }
+                    }
+
+                    var content = document.getElementById('content').innerText;
+                    console.log('content:' + content);
+                    httpRequest.open("POST", "http://127.0.0.1:9501/article-save");
+                    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    httpRequest.send(content);
+                }).then(function(message) {
+                    alert(message);
+                }).catch(function(status){
+                    alert('Error:' + status)
+                })
+            }
+            //2.jQuery
+
+        </script>
+    </body>
+</html>

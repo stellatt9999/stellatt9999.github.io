@@ -1,65 +1,91 @@
-<title>柯兰的博客</title>
-<h1>
-    欢迎来到我的博客
-</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>柯兰的博客</title>
+    </head>
+    <body>
+        <h1>
+            您好，用户
+        </h1>
 
-<p>
-    <a href="file:///D:/SttProject/Blog/frontend/html/index.html">首页</a>
-    <a href="">写博客</a>
-</p>
+        <p>
+            <a href="./index.html">全部微博</a>
+            <a href="./index.html">我的微博</a>
+            <a href="./edit.html">写博客</a>
+            <a href="">退出</a>
+        </p>
 
-<div id="list">
-    <input placeholder="请输入查询关键词" name="search"></input>
-    <button onclick="">搜索</button>
+        <div id="list">
+            <input placeholder="请输入查询关键词" name="search"></input>
+            <button onclick="">搜索</button>
 
-    <button onclick="fetchText()">发出ajax请求</button>
-    <p id="fetchResult"></p>
+            <!--button onclick="fetchText()">showAll(发出ajax请求)</button-->
+            <p id="fetchResult"></p>
 
-    <!-- <h2 id="title"></h2>
-    <li id="date"></li>
-    <span id="content"></span> -->
-</div>
+            <!-- <h2 id="title"></h2>
+            <li id="date"></li>
+            <span id="content"></span> -->
+        </div>
 
-<script>
-    // document.getElementById("title").innerHTML = "标题：Love story";
-    // document.getElementById("date").innerHTML = "2024-01-01";
-    // document.getElementById("content").innerHTML = "Love story is a country song.";
+        <script>
+            // document.getElementById("title").innerHTML = "标题：Love story";
+            // document.getElementById("date").innerHTML = "2024-01-01";
+            // document.getElementById("content").innerHTML = "Love story is a country song.";
 
-    // var titles = ["Love story1", "Love story2", "Love story3"];
-    // var dates = ["2024-01-01", "2024-01-02", "2024-01-03"];
-    // var contents = ["Love story1 is a country song.", "Love story2 is a country song.", "Love story3 is a country song."];
+            // var titles = ["Love story1", "Love story2", "Love story3"];
+            // var dates = ["2024-01-01", "2024-01-02", "2024-01-03"];
+            // var contents = ["Love story1 is a country song.", "Love story2 is a country song.", "Love story3 is a country song."];
 
-    // for (var i = 0; i < titles.length; i++) {
-    //     document.write("<h2>" + titles[i] + "</h2>");
-    //     document.write("<li>" + dates[i] + "</li>");
-    //     document.write("<span>" + contents[i] + "</span>");
-    // }
+            // for (var i = 0; i < titles.length; i++) {
+            //     document.write("<h2>" + titles[i] + "</h2>");
+            //     document.write("<li>" + dates[i] + "</li>");
+            //     document.write("<span>" + contents[i] + "</span>");
+            // }
 
-    var arr = [
-        ["Love story1", "2024-01-01", "Love story1 is a country song."],
-        ["Love story2", "2024-01-02", "Love story2 is a country song."],
-        ["Love story3", "2024-01-03", "Love story3 is a country song."]
-    ];
+            // var arr = [
+            //     ["Love story1", "2024-01-01", "Love story1 is a country song."],
+            //     ["Love story2", "2024-01-02", "Love story2 is a country song."],
+            //     ["Love story3", "2024-01-03", "Love story3 is a country song."]
+            // ];
 
-    for (var i = 0; i < arr.length; i++) {
-        document.write("<h2>" + arr[i][0] + "</h2>");
-        document.write("<li>" + arr[i][1] + "</li>");
-        document.write("<span>" + arr[i][2] + "</span>");
-    }
+            // for (var i = 0; i < arr.length; i++) {
+            //     document.write("<h2>" + arr[i][0] + "</h2>");
+            //     document.write("<li>" + arr[i][1] + "</li>");
+            //     document.write("<span>" + arr[i][2] + "</span>");
+            // }
 
-    function fetchText() {
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log("debug");
-                console.log(this.responseText);
-                document.getElementById('fetchResult').innerHTML = this.responseText;
+            function fetchText() {
+                var httpRequest = new XMLHttpRequest();
+                httpRequest.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        //document.getElementById('fetchResult').innerHTML = this.responseText;
+                        var list = document.getElementById('fetchResult');
+
+                        var obj = JSON.parse(this.responseText);
+                        for (var i = 0; i < obj.length; i++) {
+                            var title = document.createElement('h2');
+                            var date = document.createElement('li');
+                            var content = document.createElement('span');
+
+                            title.innerHTML = '<a href=""> 标题：' + obj[i]['title'] + '</a>';
+                            date.innerHTML = obj[i]['date'];
+                            content.innerHTML = obj[i]['content'];
+                            list.appendChild(title);
+                            list.appendChild(date);
+                            list.appendChild(content);
+                        }
+                    }
+                }
+
+                //httpRequest.open("GET", "./ajax_data.txt");
+                //httpRequest.open("GET", "../../backend/php/index.php");
+                httpRequest.open("GET", "http://127.0.0.1:9501/article-list");
+                httpRequest.send();
             }
-        }
 
-        //httpRequest.open("GET", "./ajax_data.txt", true);
-        httpRequest.open("GET", "./ajax_php.php", true);
-        httpRequest.send();
-    }
-    
-</script>
+            this.fetchText();
+            
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>账号登录</head>
+
+    <!--form action="./login.php"-->
+    <form method="post" action="http://127.0.0.1:9501/login">
+        <div>
+            账户:<input type="text" id="username" name="username" placeholder="请输入账号" size="20" value="test1"><br/>
+            密码:<input type="password" id="password" name="password" placeholder="请输入密码" size="20" value="9999"/><br/>
+            <input type="submit" value="提交" onclick="return validForm();"/>
+        </div>
+    </form>
+
+    <script>
+        function validForm(){
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+            if (username.value=="" || password.value=="") {
+                alert("账户和密码不能为空");
+                return false;
+            }
+            return true;
+        }
+
+        // function register(){
+        //     var httpRequest = new XMLHttpRequest();
+        //     httpRequest.open("GET", "http://127.0.0.1:9501/article-list");
+        //         httpRequest.send();
+        // }
+    </script>
+</html>
